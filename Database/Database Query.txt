@@ -1,0 +1,63 @@
+show all the rows of those Students whose age is 20:
+
+SELECT * FROM s WHERE stu_age=20
+
+
+
+show the Subject_Name of those subjects whose Subject_ID is BCA103 and BCA106:
+
+SELECT subject_name FROM z WHERE sub_id_fk="BCA103"
+SELECT subject_name FROM z WHERE sub_id_fk="BCA104"
+
+
+Write a query in SQL to find the minimum and maximum number from the integer column
+
+SELECT MIN(stu_marks) FROM s
+SELECT MAX(stu_marks) FROM s
+
+
+
+Write a query to access the first record from the SQL table?
+
+SELECT * FROM s WHERE student_id=101
+
+
+
+Write a query to access the last record from the table?
+
+SELECT * FROM s WHERE student_id=102
+
+
+
+Write a query in SQL to find the second-highest value of an integer column from the table?
+
+SELECT * FROM s WHERE stu_marks=98
+
+
+
+Write a query to show all Subject_ID along with the number of students in there.
+
+SELECT stu_subject_id FROM s ;
+SELECT COUNT(stu_name) FROM s 
+
+
+
+
+Write a query in structured query language to view all student details from the Student table order by Stu_Name Descending.
+
+SELECT * FROM s ORDER BY stu_name DESC
+
+
+Write a query to show the maximum marks of each subject.
+
+SELECT MAX(stu_marks) FROM s
+
+
+
+Write a query in SQL to fetch the values of the Stu_Name column from the Student table in the upper case.
+
+SELECT student_id,  upper(stu_name),stu_subject_id,stu_marks,stu_age FROM s 
+
+
+Write an SQL query to show the unique values of Stu_Age from the student table:
+

@@ -1,0 +1,139 @@
+CREATE DATABASE Practices
+
+
+CREATE TABLE tblProduct
+(
+    
+    prd_id int PRIMARY KEY AUTO_INCREMENT,
+    prd_name varchar(25),
+    recommended_price varchar(25),
+    category varchar(25)
+   
+)
+
+
+
+INSERT INTO tblproduct(prd_name, recommended_price, category) VALUES ("Shirts","500","Men");
+INSERT INTO tblproduct(prd_name, recommended_price, category) VALUES ("Dress","5000","Women");
+INSERT INTO tblproduct(prd_name, recommended_price, category) VALUES ("Diapers","500","Kids");
+
+
+
+
+CREATE TABLE tblCustomer
+(
+    
+    
+    CustomerID int PRIMARY KEY AUTO_INCREMENT,
+    FirstName varchar(25),
+    LastName varchar(25),
+    city varchar(25),
+    state varchar(25),
+    zip varchar(25)
+    
+)
+
+
+
+INSERT INTO tblcustomer(FirstName, LastName, city, state, zip) VALUES ("Vijay", "Sharma", "Ahmedabad", "GJ", "400034");
+INSERT INTO tblcustomer(FirstName, LastName, city, state, zip) VALUES ("Divya", "Parmar", "Rajsthan", "RJ", "400564");
+INSERT INTO tblcustomer(FirstName, LastName, city, state, zip) VALUES ("Karan", "Raj", "Ahmedabad", "GJ", "400005");
+
+
+
+
+
+CREATE TABLE tblSales
+(
+    
+    
+    Sales_ID int PRIMARY KEY AUTO_INCREMENT,
+    prd_id_fk int,
+    CustomerID_fk int,
+    SalesPrice varchar(25),
+    SalesDate varchar(25),
+    FOREIGN KEY (prd_id_fk) REFERENCES tblproduct(prd_id),
+    FOREIGN KEY(CustomerID_fk) REFERENCES tblcustomer(CustomerID)
+    
+)
+
+
+
+INSERT INTO tblsales (prd_id_fk, CustomerID_fk, SalesPrice, SalesDate) VALUES (1, 1, "500","10-12-22");
+INSERT INTO tblsales (prd_id_fk, CustomerID_fk, SalesPrice, SalesDate) VALUES (2, 2, "5000","7-12-22");
+INSERT INTO tblsales (prd_id_fk, CustomerID_fk, SalesPrice, SalesDate) VALUES (3, 3, "300","13-12-22");
+
+
+
+
+
+
+
+
+Queries :
+
+
+1) Return the FirstName, LastName , ProductName and Sales Price for all products sold in month of 10-12-22
+
+SELECT Firstname, Lastname, prd_name, SalesPrice FROM tblsales,tblproduct,tblcustomer WHERE SalesDate= "10-12-22"
+
+
+
+2) Return the CustomerID, FirstName, and LastName of those individuals in the Customer table who have made no Sales purchases.
+
+SELECT * FROM tblcustomer WHERE CustomerID= 4
+
+
+
+4) Add the following Customer and Sale information to the database. (using store procedure)
+FirstName : Mansi
+LastName : Joshi
+City: Mumbai
+State: MH
+Zip: 400001
+Product ID: 3
+Sale Price: 205
+Sale Date: 05/12/2022
+
+
+
+DELIMITER $$
+CREATE PROCEDURE insertdata()
+BEGIN
+
+INSERT INTO tblcustomer(FirstName, LastName, city, state, zip) VALUES ("Mansi", "Joshi","Mumbai","MH","400001");
+INSERT INTO tblsales(SalesPrice, SalesDate) VALUES ("205","5-12-22");
+
+END
+
+CALL insertdata();
+
+
+
+6) Update the Sale Price to the Recommended Sale Price of those Sales occurring between 6/10/2022 and 6/20/2022.
+
+UPDATE tblsales SET SalesPrice="6000" WHERE SalesDate BETWEEN "10-12-22" AND "13-12-22";
+UPDATE tblproduct SET recommended_price="6000" WHERE prd_id =2
+
+
+8) Largest order taken by each sales person, date wise
+
+SELECT * FROM tblsales ORDER BY SalesPrice DESC
+
+
+5) Return the Product Category and the average Sale Price for those customers who have purchased two or more products 
+
+SELECT category FROM tblproduct;
+SELECT AVG(SalesPrice) FROM tblsales
+
+
+9) Without using a declared iterative construct, return Sale Date and the running total for all sales,
+ordered by the Sale Date in Ascending Order.
+
+SELECT SUM(SalesPrice) FROM tblsales;
+SELECT * FROM tblsales ORDER BY SalesPrice DESC
+
+
+7) Number of Sales by Product Category where the average Recommended Price is 10 or more dollars greater than the average Sale Price.
+
+SELECT AVG(recommended_price) FROM tblproduct WHERE prd_id=2
