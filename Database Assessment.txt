@@ -1,0 +1,71 @@
+CREATE DATABASE dbassessment
+
+
+CREATE TABLE assessment
+(
+    y int,
+    subject varchar(50),
+    winner varchar(50),
+    country varchar(50),
+    category varchar(50)
+
+)
+
+
+
+INSERT INTO assessment(y, subject, winner, country, category) VALUES (1970, "Physics", "Hannes Alfven", "Sweden","Scientist");
+INSERT INTO assessment(y, subject, winner, country, category) VALUES (1970, "Physics", "Louis Neel", "France", "Scientist");
+INSERT INTO assessment(y, subject, winner, country, category) VALUES (1970, "Chemistry","Luis Federico Leloir","France",
+"Scientist");
+
+
+
+Querys:-
+
+
+● Write sql query to find the nobel prize winners of the year 1970. Return year,subject and winner
+
+
+SELECT y, subject, winner FROM assessment WHERE y=1970
+
+
+● Write sql query to retrieve the details of the winners whose first name matches with the string ‘Louis’. Return year,subject,winner,country
+
+
+SELECT y, subject, winner, country FROM assessment WHERE winner="Louis Neel"
+
+
+
+● Write sql query to find the nobel prize winners in chemistry between the years 1965 and 1975. Begin and end values are includedReturn year, subject, winner and countr
+
+
+SELECT y, subject, winner, country
+  FROM assessment
+ WHERE subject = 'Chemistry'
+   AND y>=1965 AND y<=1975;
+
+
+● Write sql query to find Nobel prize winners for the subject that does not begin with the letter ‘P’. Order the result by year, descending and winner in ascending
+
+
+SELECT * FROM assessment WHERE winner NOT LIKE 'P%';
+SELECT * FROM assessment ORDER BY y DESC;
+SELECT * FROM assessment ORDER BY winner ASC
+
+
+
+
+● Write sql query to find the details of 1970 Nobel prize winners. Order the result by
+subject, ascending except for ‘Chemistry’ and ‘Economics’ which will come at the
+end of the result set. Return year, subject, winner , country and category.
+
+SELECT *
+FROM assessment
+WHERE y=1970 
+ORDER BY
+ CASE
+    WHEN subject IN ('Economics','Chemistry') THEN 1
+    ELSE 0
+ END ASC,
+ subject,
+ winner;
